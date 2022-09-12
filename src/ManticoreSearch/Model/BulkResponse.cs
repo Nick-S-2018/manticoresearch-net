@@ -31,14 +31,14 @@ namespace ManticoreSearch.Model
     /// Success bulk response
     /// </summary>
     [DataContract(Name = "bulkResponse")]
-    public partial class BulkResponse : Dictionary<String, Object>, IEquatable<BulkResponse>, IValidatableObject
+    public partial class BulkResponse : IEquatable<BulkResponse>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BulkResponse" /> class.
         /// </summary>
         /// <param name="items">items.</param>
         /// <param name="error">error.</param>
-        public BulkResponse(List items = default(List), bool error = default(bool)) : base()
+        public BulkResponse(Object items = default(Object), bool error = default(bool)) : base()
         {
             this.Items = items;
             this.Error = error;
@@ -49,7 +49,7 @@ namespace ManticoreSearch.Model
         /// Gets or Sets Items
         /// </summary>
         [DataMember(Name = "items", EmitDefaultValue = false)]
-        public List Items { get; set; }
+        public Object Items { get; set; }
 
         /// <summary>
         /// Gets or Sets Error
