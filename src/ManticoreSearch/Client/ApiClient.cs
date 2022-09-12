@@ -389,8 +389,8 @@ namespace ManticoreSearch.Client
             }
 
             
-            //string myContent = request.Content.ReadAsStringAsync().Result;
-            //System.Console.WriteLine(myContent);
+            string myContent = request.Content.ReadAsStringAsync().Result;
+            System.Console.WriteLine(myContent);
             //System.Console.WriteLine(options.Data);
 
             // TODO provide an alternative that allows cookies per request instead of per API client

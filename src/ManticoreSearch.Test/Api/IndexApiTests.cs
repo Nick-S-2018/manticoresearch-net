@@ -71,7 +71,7 @@ namespace ManticoreSearch.Test.Api
         public void BulkTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"title\": \"Title 1\"}}}" + "\n";
+            string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"title\": \"Title 1\"}}}";
             var response = instance.Bulk(body);
             Assert.IsType<BulkResponse>(response);
         }
