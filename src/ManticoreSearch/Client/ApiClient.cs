@@ -359,8 +359,6 @@ namespace ManticoreSearch.Client
                 contentType = contentTypes.FirstOrDefault();
             }
             
-            System.Console.WriteLine(contentType);
-
             if (contentType == "multipart/form-data")
             {
                 request.Content = PrepareMultipartFormDataContent(options);
@@ -393,16 +391,11 @@ namespace ManticoreSearch.Client
                         {
                             data = serializer.Serialize(options.Data);
                         }
-                        request.Content = new StringContent(data, new UTF8Encoding(),
-                            "application/x-ndjson");
+                        string contentType = path.EndsWith('bulk') ? "application/x-ndjson" : "application/json"; 
+                        request.Content = new StringContent(data, new UTF8Encoding(), contentType);
                     }
                 }
             }
-
-            
-            string myContent = request.Content.ReadAsStringAsync().Result;
-            System.Console.WriteLine(myContent);
-            
 
             // TODO provide an alternative that allows cookies per request instead of per API client
             if (options.Cookies != null && options.Cookies.Count > 0)
