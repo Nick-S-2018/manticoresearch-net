@@ -525,6 +525,7 @@ namespace ManticoreSearch.Client
                 return await ToApiResponse<T>(response, default(T), req.RequestUri);
             }
 
+            System.Console.WriteLine(response);
             object responseData = await deserializer.Deserialize<T>(response);
 
             // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
