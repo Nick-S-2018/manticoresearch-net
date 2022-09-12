@@ -144,6 +144,8 @@ namespace ManticoreSearch.Client
             // at this point, it must be a model (json)
             try
             {
+                System.Console.WriteLine(await response.Content.ReadAsStringAsync());
+                System.Console.WriteLine(type.Name);
                 return JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync(), type, _serializerSettings);
             }
             catch (Exception e)
@@ -525,7 +527,6 @@ namespace ManticoreSearch.Client
                 return await ToApiResponse<T>(response, default(T), req.RequestUri);
             }
 
-            System.Console.WriteLine(response);
             object responseData = await deserializer.Deserialize<T>(response);
 
             // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
