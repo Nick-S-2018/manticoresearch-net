@@ -328,7 +328,7 @@ namespace ManticoreSearch.Api
             ManticoreSearch.Client.RequestOptions localVarRequestOptions = new ManticoreSearch.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
-                "text/plain"
+                "application/x-ndjson"
             };
 
             // to determine the Accept header
@@ -348,10 +348,11 @@ namespace ManticoreSearch.Api
             }
             
             if  (rawResponse != true) {
-              body = "query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
+              body = "query=" + HttpUtility.UrlEncode( body.ToString().Replace(" ", "%20") );
             } else {
-              body = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
+              body = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString().Replace(" ", "%20") );
             }
+            System.Console.WriteLine(body);
             System.Console.WriteLine(body);
       
             localVarRequestOptions.Data = body;
