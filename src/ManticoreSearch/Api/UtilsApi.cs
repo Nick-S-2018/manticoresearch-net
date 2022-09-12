@@ -348,9 +348,9 @@ namespace ManticoreSearch.Api
             }
             
             if  (rawResponse != true) {
-              body = "query=" + HttpUtility.UrlEncode( body.ToString().Replace(" ", "%20") );
+              body = "query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
             } else {
-              body = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString().Replace(" ", "%20") );
+              body = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
             }
             System.Console.WriteLine(body);
             System.Console.WriteLine(body);
