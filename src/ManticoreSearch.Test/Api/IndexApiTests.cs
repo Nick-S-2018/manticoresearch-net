@@ -56,7 +56,6 @@ namespace ManticoreSearch.Test.Api
         public void InstanceTest()
         {
             // TODO uncomment below to test 'IsType' IndexApi
-            Console.WriteLine("This is C#");
             Assert.IsType<IndexApi>(instance);
         }
 
@@ -67,9 +66,9 @@ namespace ManticoreSearch.Test.Api
         public void BulkTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"title\": \"Title 1\"}}}" + "\n";
-            //var response = instance.Bulk(body);
-            //Assert.IsType<BulkResponse>(response);
+            string body = "{\"insert\": {\"index\": \"movies\", \"id\": 1000, \"doc\": {\"title\": \"Title 1\"}}}" + "\n";
+            var response = instance.Bulk(body);
+            Assert.IsType<BulkResponse>(response);
         }
         
         /// <summary>
@@ -79,9 +78,9 @@ namespace ManticoreSearch.Test.Api
         public void DeleteTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
-            //var response = instance.Delete(deleteDocumentRequest);
-            //Assert.IsType<DeleteResponse>(response);
+            DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "movies", id: 1000);
+            var response = instance.Delete(deleteDocumentRequest);
+            Assert.IsType<DeleteResponse>(response);
         }
 
 
@@ -94,9 +93,9 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
            Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
            doc.Add("title", "test");
-           doc.Add("body", "test");
-           InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
-           insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
+           doc.Add("advise", "test");
+           InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "movies", id: 1000, doc: doc);
+           insertDocumentRequest = new InsertDocumentRequest(index: "movies", id: 1001, doc: doc);
            var response = instance.Insert(insertDocumentRequest);
            Assert.IsType<SuccessResponse>(response);
         }
@@ -110,8 +109,8 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
             Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
             doc.Add("title", "test 2");
-            doc.Add("body", "test");
-            InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+            doc.Add("advise", "test");
+            InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "movies", id: 1000, doc: doc);
             var response = instance.Replace(insertDocumentRequest);
             Assert.IsType<SuccessResponse>(response);
         }
@@ -124,8 +123,8 @@ namespace ManticoreSearch.Test.Api
         {
             // TODO uncomment below to test the method and replace null with proper value
             Dictionary<string, Object> doc = new Dictionary<string, Object>();
-            doc.Add("body", "test 2");
-            UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
+            doc.Add("advise", "test 2");
+            UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "movies", id: 1001, doc: doc);
             var response = instance.Update(updateDocumentRequest);
             Assert.IsType<UpdateResponse>(response);
         }
