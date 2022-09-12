@@ -357,7 +357,7 @@ namespace ManticoreSearch.Client
                 contentType = contentTypes.FirstOrDefault();
             }
             
-            System.Console.WriteLine(contentType);
+            //System.Console.WriteLine(contentType);
 
             if (contentType == "multipart/form-data")
             {
@@ -389,9 +389,9 @@ namespace ManticoreSearch.Client
             }
 
             
-            string myContent = request.Content.ReadAsStringAsync().Result;
-            System.Console.WriteLine(myContent);
-            System.Console.WriteLine(options.Data);
+            //string myContent = request.Content.ReadAsStringAsync().Result;
+            //System.Console.WriteLine(myContent);
+            //System.Console.WriteLine(options.Data);
 
             // TODO provide an alternative that allows cookies per request instead of per API client
             if (options.Cookies != null && options.Cookies.Count > 0)
