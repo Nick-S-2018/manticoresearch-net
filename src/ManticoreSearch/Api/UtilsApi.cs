@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Web;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mime;
@@ -345,6 +346,14 @@ namespace ManticoreSearch.Api
             {
                 localVarRequestOptions.QueryParameters.Add(ManticoreSearch.Client.ClientUtils.ParameterToMultiMap("", "raw_response", rawResponse));
             }
+            
+            if  (rawResponse != true) {
+              body = "query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
+            } else {
+              body = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
+            }
+            System.Console.WriteLine(body);
+      
             localVarRequestOptions.Data = body;
 
 
