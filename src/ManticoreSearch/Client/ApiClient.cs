@@ -382,7 +382,7 @@ namespace ManticoreSearch.Client
                     else
                     {
                         var serializer = new CustomJsonCodec(SerializerSettings, configuration);
-                        request.Content = new StringContent(serializer.Serialize(options.Data), new UTF8Encoding(),
+                        request.Content = new StringContent("{\"insert\"}", new UTF8Encoding(),
                             "application/x-ndjson");
                     }
                 }
