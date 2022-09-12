@@ -14,12 +14,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Net.Http;
 using Xunit;
 
 using ManticoreSearch.Client;
 using ManticoreSearch.Api;
 // uncomment below to import models
-//using ManticoreSearch.Model;
+using ManticoreSearch.Model;
 
 namespace ManticoreSearch.Test.Api
 {
@@ -36,7 +37,11 @@ namespace ManticoreSearch.Test.Api
 
         public IndexApiTests()
         {
-            instance = new IndexApi();
+            Configuration config = new Configuration();
+            config.BasePath = "http://127.0.0.1:9308";
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            instance = new IndexApi(httpClient, config, httpClientHandler);
         }
 
         public void Dispose()
@@ -51,7 +56,8 @@ namespace ManticoreSearch.Test.Api
         public void InstanceTest()
         {
             // TODO uncomment below to test 'IsType' IndexApi
-            //Assert.IsType<IndexApi>(instance);
+            Console.WriteLine("This is C#");
+            Assert.IsType<IndexApi>(instance);
         }
 
         /// <summary>
@@ -61,11 +67,11 @@ namespace ManticoreSearch.Test.Api
         public void BulkTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //string body = null;
+            //string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"title\": \"Title 1\"}}}" + "\n";
             //var response = instance.Bulk(body);
             //Assert.IsType<BulkResponse>(response);
         }
-
+        
         /// <summary>
         /// Test Delete
         /// </summary>
@@ -73,10 +79,11 @@ namespace ManticoreSearch.Test.Api
         public void DeleteTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //DeleteDocumentRequest deleteDocumentRequest = null;
+            //DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
             //var response = instance.Delete(deleteDocumentRequest);
             //Assert.IsType<DeleteResponse>(response);
         }
+
 
         /// <summary>
         /// Test Insert
@@ -85,9 +92,13 @@ namespace ManticoreSearch.Test.Api
         public void InsertTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //InsertDocumentRequest insertDocumentRequest = null;
-            //var response = instance.Insert(insertDocumentRequest);
-            //Assert.IsType<SuccessResponse>(response);
+           Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+           doc.Add("title", "test");
+           doc.Add("body", "test");
+           InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+           insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
+           var response = instance.Insert(insertDocumentRequest);
+           Assert.IsType<SuccessResponse>(response);
         }
 
         /// <summary>
@@ -97,9 +108,12 @@ namespace ManticoreSearch.Test.Api
         public void ReplaceTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //InsertDocumentRequest insertDocumentRequest = null;
-            //var response = instance.Replace(insertDocumentRequest);
-            //Assert.IsType<SuccessResponse>(response);
+            Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+            doc.Add("title", "test 2");
+            doc.Add("body", "test");
+            InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+            var response = instance.Replace(insertDocumentRequest);
+            Assert.IsType<SuccessResponse>(response);
         }
 
         /// <summary>
@@ -109,9 +123,11 @@ namespace ManticoreSearch.Test.Api
         public void UpdateTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //UpdateDocumentRequest updateDocumentRequest = null;
-            //var response = instance.Update(updateDocumentRequest);
-            //Assert.IsType<UpdateResponse>(response);
+            Dictionary<string, Object> doc = new Dictionary<string, Object>();
+            doc.Add("body", "test 2");
+            UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
+            var response = instance.Update(updateDocumentRequest);
+            Assert.IsType<UpdateResponse>(response);
         }
     }
 }
