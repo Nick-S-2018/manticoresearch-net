@@ -38,7 +38,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <param name="items">items.</param>
         /// <param name="error">error.</param>
-        public BulkResponse(Object items = default(Object), bool error = default(bool)) : base()
+        public BulkResponse(List items = default(List), bool error = default(bool)) : base()
         {
             this.Items = items;
             this.Error = error;
@@ -49,7 +49,7 @@ namespace ManticoreSearch.Model
         /// Gets or Sets Items
         /// </summary>
         [DataMember(Name = "items", EmitDefaultValue = false)]
-        public Object Items { get; set; }
+        public List Items { get; set; }
 
         /// <summary>
         /// Gets or Sets Error
