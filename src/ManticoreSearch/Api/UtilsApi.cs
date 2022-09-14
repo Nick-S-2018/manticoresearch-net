@@ -359,7 +359,7 @@ namespace ManticoreSearch.Api
 
 
             // make the HTTP request
-            var localVarResponse = new List<Object>();
+            var localVarResponse = new ManticoreSearch.Client.ApiResponse<List<Object>>();
             if  (rawResponse != true) {
                 localVarResponse.Add( this.Client.Post<Object>("/sql", localVarRequestOptions, this.Configuration) );
             } else {
