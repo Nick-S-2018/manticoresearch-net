@@ -50,7 +50,6 @@ namespace ManticoreSearch.Test.Api
             var res = utilsApi.Sql(body, true);
             body = "SELECT * FROM test";
             res = utilsApi.Sql(body, true);
-            var jsonSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             string json = JsonConvert.SerializeObject(res);
             System.Console.WriteLine(json);
             System.Console.WriteLine("------");
