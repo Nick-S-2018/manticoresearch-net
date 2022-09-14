@@ -359,15 +359,17 @@ namespace ManticoreSearch.Api
 
 
             // make the HTTP request
-            var localVarResponse = new ManticoreSearch.Client.ApiResponse();
+            var localVarResponse = new ManticoreSearch.Client.ApiResponse(null, new Multimap<string, string>());
             if  (rawResponse != true) {
+                var transformed = new ApiResponse<T>(response.StatusCode, new Multimap<string, string>(), result, rawContent)
+
                 var res = this.Client.Post<Object>("/sql", localVarRequestOptions, this.Configuration);
-                System.Console.WriteLine( res.GetStatusCode() );
-                System.Console.WriteLine( res.GetHeaders() );
-                System.Console.WriteLine( res.GetData() );
+                System.Console.WriteLine( res.StatusCode );
+                System.Console.WriteLine( res.Headers );
+                System.Console.WriteLine( res.Data );
                 List<Object> resList = new List<Object>();
-                resList.Add( res.GetData() );
-                localVarResponse = new ManticoreSearch.Client.ApiResponse<List<Object>>(res.GetStatusCode(), res.GetHeaders(), resList);
+                resList.Add( res.Data );
+                localVarResponse = new ManticoreSearch.Client.ApiResponse<List<Object>>(res.StatusCode, res.Headers, resList);
             } else {
                 localVarResponse = this.Client.Post<List<Object>>("/sql", localVarRequestOptions, this.Configuration);
             }
