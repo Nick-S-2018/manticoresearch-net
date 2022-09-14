@@ -352,8 +352,6 @@ namespace ManticoreSearch.Api
             } else {
               body = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
             }
-            System.Console.WriteLine(body);
-            System.Console.WriteLine(body);
       
             localVarRequestOptions.Data = body;
 
@@ -362,9 +360,6 @@ namespace ManticoreSearch.Api
             var localVarResponse = new ManticoreSearch.Client.ApiResponse<List<Object>>( new HttpStatusCode(), null);
             if  (rawResponse != true) {
                 var res = this.Client.Post<Object>("/sql", localVarRequestOptions, this.Configuration);
-                System.Console.WriteLine( res.StatusCode );
-                System.Console.WriteLine( res.Headers );
-                System.Console.WriteLine( res.Data );
                 List<Object> resList = new List<Object>();
                 resList.Add( res.Data );
                 localVarResponse = new ManticoreSearch.Client.ApiResponse<List<Object>>(res.StatusCode, res.Headers, resList);
