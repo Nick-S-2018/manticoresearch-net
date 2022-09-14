@@ -16,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Net.Http;
 using Xunit;
+using Newtonsoft.Json;
 
 using ManticoreSearch.Client;
 using ManticoreSearch.Api;
@@ -50,11 +51,11 @@ namespace ManticoreSearch.Test.Api
             body = "SELECT * FROM test";
             res = utilsApi.Sql(body, true);
             var jsonSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            string json = jsonSerializer.Serialize(res);
+            string json = JsonConvert.SerializeObject(res);
             System.Console.WriteLine(json);
             System.Console.WriteLine("------");
             res = utilsApi.Sql(body, false);
-            json = jsonSerializer.Serialize(res);
+            json = JsonConvert.SerializeObject(res);
             System.Console.WriteLine(json);
         }
 
