@@ -144,8 +144,6 @@ namespace ManticoreSearch.Client
             // at this point, it must be a model (json)
             try
             {
-                System.Console.WriteLine(await response.Content.ReadAsStringAsync());
-                System.Console.WriteLine(type.Name);
                 return JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync(), type, _serializerSettings);
             }
             catch (Exception e)

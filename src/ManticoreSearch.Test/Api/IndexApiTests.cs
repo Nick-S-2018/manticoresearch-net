@@ -50,6 +50,7 @@ namespace ManticoreSearch.Test.Api
             body = "SELECT * FROM test";
             res = utilsApi.Sql(body, true);
             System.Console.WriteLine(res);
+            System.Console.WriteLine("------");
             res = utilsApi.Sql(body, false);
             System.Console.WriteLine(res);
         }
