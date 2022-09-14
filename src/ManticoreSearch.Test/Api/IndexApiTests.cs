@@ -49,10 +49,13 @@ namespace ManticoreSearch.Test.Api
             var res = utilsApi.Sql(body, true);
             body = "SELECT * FROM test";
             res = utilsApi.Sql(body, true);
-            System.Console.WriteLine(res);
+            var jsonSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(res);
+            System.Console.WriteLine(json);
             System.Console.WriteLine("------");
             res = utilsApi.Sql(body, false);
-            System.Console.WriteLine(res);
+            json = jsonSerializer.Serialize(res);
+            System.Console.WriteLine(json);
         }
 
         public void Dispose()
