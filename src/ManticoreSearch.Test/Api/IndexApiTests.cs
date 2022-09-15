@@ -75,7 +75,7 @@ namespace ManticoreSearch.Test.Api
         [Fact]
         public void BulkTest()
         {
-            if ( this.HasMethod(instance, 'Bulk') ) 
+            if ( this.HasMethod(instance, "Bulk") ) 
             {
                 string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"title\": \"Title 1\"}}}" + "\n";
                 var response = instance.Bulk(body);
