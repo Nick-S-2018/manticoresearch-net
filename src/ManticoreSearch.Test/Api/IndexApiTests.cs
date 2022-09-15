@@ -60,6 +60,17 @@ namespace ManticoreSearch.Test.Api
             // }
             return null;
         }     
+
+        private object JustTest(object p)
+        {
+            // Func<Object,Object> test;
+            // if (implementedTests.TryGetValue(testName, out test))
+            // {
+            //     return test(instance);
+            // }
+            string body = "test";
+            return p.Bulk(body);
+        }
                 
 
         public IndexApiTests()
@@ -69,12 +80,7 @@ namespace ManticoreSearch.Test.Api
                 { "IndexApi", (p) => { return InitTests(); } },
                 { "SearchApi", (p) => { return InitTests(); } },
                 { "UtilsApi", (p) => { return InitTests(); } },
-                { "BulkTest", (p) => 
-                    {
-                        string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n";
-                        return p.Bulk(body);
-                    }
-                },
+                { "BulkTest", JustTest },
                 { "InsertTest", (p) => 
                     {
                         Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
