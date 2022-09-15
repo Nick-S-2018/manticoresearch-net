@@ -34,7 +34,7 @@ namespace ManticoreSearch.Test.Api
     public class SearchApiTests : IDisposable
     {
         private SearchApi instance;
-        private Dictionary<string, Func<Object>(Object p)> implementedTests;
+        private Dictionary<string, Func<Object,Object>> implementedTests;
 
         private object InitTests()
         {
@@ -68,7 +68,7 @@ namespace ManticoreSearch.Test.Api
 
         public SearchApiTests()
         {
-            implementedTests = new Dictionary<string, Func<Object>(Object p)>()
+            implementedTests = new Dictionary<string, Func<Object,Object>>()
             {
                 { "IndexApi", () => { return InitTests(); } },
                 { "SearchApi", () => { return InitTests(); } },
