@@ -34,7 +34,7 @@ namespace ManticoreSearch.Test.Api
     {
         private SearchApi instance;
 
-            private void InitTests()
+        private void InitTests()
         {
             System.Console.WriteLine("ok");
             Configuration config = new Configuration();
@@ -49,16 +49,11 @@ namespace ManticoreSearch.Test.Api
             utilsApi.Sql(body, true);
         }
                 
-        private Dictionary<string, Action> implementedTests = new Dictionary<string, Action>()
-        {
-            { "IndexApiTests", () => { InitTests(); } },
-            { "SearchApiTests", () => { InitTests(); } },
-            { "UtilsTests", () => { InitTests(); } }
-        };
+        private Dictionary<string, Action> implementedTests;
         
         private void CheckTest(string testName)
         {
-            if (this.implementedTests.TryGetValue(testName, out action))
+            if (implementedTests.TryGetValue(testName, out action))
             {
                 System.Console.WriteLine(instance);
                 action();
@@ -68,6 +63,13 @@ namespace ManticoreSearch.Test.Api
 
         public SearchApiTests()
         {
+            implementedTests = new Dictionary<string, Action>()
+            {
+                { "IndexApiTests", () => { InitTests(); } },
+                { "SearchApiTests", () => { InitTests(); } },
+                { "UtilsTests", () => { InitTests(); } },
+            };
+
             this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
         }
 
