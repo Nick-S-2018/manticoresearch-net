@@ -66,12 +66,12 @@ namespace ManticoreSearch.Test.Api
         {
             implementedTests = new Dictionary<string, Func<Object>>()
             {
-                { "IndexApiTests", () => { return InitTests(); } },
-                { "SearchApiTests", () => { return InitTests(); } },
-                { "UtilsApiTests", () => { return InitTests(); } },
+                { "IndexApi", () => { return InitTests(); } },
+                { "SearchApi", () => { return InitTests(); } },
+                { "UtilsApi", () => { return InitTests(); } },
             };
 
-            this.CheckTest(SearchApi);
+            this.CheckTest("SearchApi");
         }
 
         public void Dispose()
