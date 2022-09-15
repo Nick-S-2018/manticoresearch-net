@@ -73,10 +73,10 @@ namespace ManticoreSearch.Test.Api
                 { "IndexApi", () => { return InitTests(); } },
                 { "SearchApi", () => { return InitTests(); } },
                 { "UtilsApi", () => { return InitTests(); } },
-                { "BulkTest", () => 
+                { "BulkTest", (p) => 
                     {
                         string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n";
-                        return instance.Bulk(body);
+                        return p.Bulk(body);
                     }
                 },
                 { "InsertTest", () => 
