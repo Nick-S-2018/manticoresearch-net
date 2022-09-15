@@ -53,7 +53,7 @@ namespace ManticoreSearch.Test.Api
         {
             { "IndexApiTests", () => { this.InitTests(); } },
             { "SearchApiTests", () => { this.InitTests(); } },
-            { "UtilsTests", () => { this.InitTests(); } },
+            { "UtilsTests", () => { this.InitTests(); } }
         };
         
         private void CheckTest(string testName)
