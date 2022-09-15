@@ -56,7 +56,7 @@ namespace ManticoreSearch.Test.Api
             Func<Object> test;
             if (implementedTests.TryGetValue(testName, out test))
             {
-                return test();
+                return null;
             }
             return null;
         }     
