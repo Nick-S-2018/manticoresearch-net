@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using Xunit;
-using System.Net.Http
+using System.Net.Http;
 
 using ManticoreSearch.Client;
 using ManticoreSearch.Api;
