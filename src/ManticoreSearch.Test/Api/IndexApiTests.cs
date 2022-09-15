@@ -46,8 +46,7 @@ namespace ManticoreSearch.Test.Api
             config.BasePath = "http://127.0.0.1:9308";
             httpClient = new HttpClient();
             httpClientHandler = new HttpClientHandler();
-            var utilsApi = new UtilsApi();
-            string body ="DROP TABLE IF EXISTS test; CREATE TABLE IF NOT EXISTS test (body text, title string)";
+            body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
             instance = new IndexApi(httpClient, config, httpClientHandler);
         }
@@ -127,7 +126,9 @@ namespace ManticoreSearch.Test.Api
 
         public void Dispose()
         {
-            // Cleanup when everything is done.
+            var utilsApi = new UtilsApi();
+            string body ="DROP TABLE IF EXISTS test";
+            utilsApi.Sql(body, true);
         }
 
         /// <summary>
