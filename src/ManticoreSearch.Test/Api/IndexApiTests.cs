@@ -65,10 +65,10 @@ namespace ManticoreSearch.Test.Api
 
         public IndexApiTests()
         {
-            implementedTests = new Dictionary<string, Dictionary<string,Func>>()
+            implementedTests = new Dictionary<string, Dictionary<string,Func<Object>>>()
             {
                 { "IndexApi", 
-                    new Dictionary<string, Func>()
+                    new Dictionary<string, Func<Object>()
                     {
                         { "InsertTest", () => 
                             {
@@ -89,7 +89,7 @@ namespace ManticoreSearch.Test.Api
                 }
             };
 
-            IntiTests();
+            InitTests();
         }
 
         public void Dispose()
