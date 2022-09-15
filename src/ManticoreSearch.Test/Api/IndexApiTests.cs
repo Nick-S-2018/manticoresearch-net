@@ -34,7 +34,7 @@ namespace ManticoreSearch.Test.Api
     public class IndexApiTests : IDisposable
     {
         private IndexApi instance;
-        private Dictionary<string, Func<Object>> implementedTests;
+        private Dictionary<string, Func<Object,Object>> implementedTests;
 
         private object InitTests()
         {
@@ -53,10 +53,10 @@ namespace ManticoreSearch.Test.Api
                 
         private object CheckTest(string testName)
         {
-            Func<Object> test;
+            Func<Object,Object> test;
             if (implementedTests.TryGetValue(testName, out test))
             {
-                return test();
+                return test(instance);
             }
             return null;
         }     
@@ -64,48 +64,48 @@ namespace ManticoreSearch.Test.Api
 
         public IndexApiTests()
         {
-            implementedTests = new Dictionary<string, Func<Object>>()
+            implementedTests = new Dictionary<string, Func<Object,Object>>()
             {
-                { "IndexApi", () => { return InitTests(); } },
-                { "SearchApi", () => { return InitTests(); } },
-                { "UtilsApi", () => { return InitTests(); } },
-                { "BulkTest", () => 
+                { "IndexApi", (p) => { return InitTests(); } },
+                { "SearchApi", (p) => { return InitTests(); } },
+                { "UtilsApi", (p) => { return InitTests(); } },
+                { "BulkTest", (p) => 
                     {
                         string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n";
-                        return instance.Bulk(body);
+                        return p.Bulk(body);
                     }
                 },
-                { "InsertTest", () => 
+                { "InsertTest", (p) => 
                     {
                         Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
                         doc.Add("body", "test");
                         doc.Add("title", "test");
                         InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
                         insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
-                        return instance.Insert(insertDocumentRequest);
+                        return p.Insert(insertDocumentRequest);
                     }
                 },
-                { "ReplaceTest", () => 
+                { "ReplaceTest", (p) => 
                     {
                         Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
                         doc.Add("body", "test 2");
                         doc.Add("title", "test");
                         InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
-                        return instance.Replace(insertDocumentRequest);
+                        return p.Replace(insertDocumentRequest);
                     }
                 },
-                { "UpdateTest", () => 
+                { "UpdateTest", (p) => 
                     {
                         Dictionary<string, Object> doc = new Dictionary<string, Object>();
                         doc.Add("title", "test 2");
                         UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
-                        return instance.Update(updateDocumentRequest);
+                        return p.Update(updateDocumentRequest);
                     }
                 },
-                { "DeleteTest", () => 
+                { "DeleteTest", (p) => 
                     {
                         DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
-                        return instance.Delete(deleteDocumentRequest);
+                        return p.Delete(deleteDocumentRequest);
                     }
                 },
             };
