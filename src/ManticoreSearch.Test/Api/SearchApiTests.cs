@@ -14,8 +14,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Net.Http;
 using Xunit;
+using System.Net.Http
 
 using ManticoreSearch.Client;
 using ManticoreSearch.Api;
@@ -34,10 +34,10 @@ namespace ManticoreSearch.Test.Api
     public class SearchApiTests : IDisposable
     {
         private SearchApi instance;
+        private Dictionary<string, Func<Object>> implementedTests;
 
-        private void InitTests()
+        private object InitTests()
         {
-            System.Console.WriteLine("ok");
             Configuration config = new Configuration();
             config.BasePath = "http://127.0.0.1:9308";
             HttpClient httpClient = new HttpClient();
@@ -48,34 +48,30 @@ namespace ManticoreSearch.Test.Api
             utilsApi.Sql(body, true);
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
+            return instance;
         }
                 
-        private Dictionary<string, Action> implementedTests;
-        
-        private void CheckTest(string testName)
+        private object CheckTest(string testName)
         {
-            System.Console.WriteLine("-----");
-            System.Console.WriteLine(testName);
-            Action act;
-            if (implementedTests.TryGetValue(testName, out act))
+            Func<Object> test;
+            if (implementedTests.TryGetValue(testName, out test))
             {
-                System.Console.WriteLine(instance);
-                act();
-                System.Console.WriteLine(instance);
+                return test();
             }
-        }  
+            return null;
+        }     
+                
 
         public SearchApiTests()
         {
-            implementedTests = new Dictionary<string, Action>()
+            implementedTests = new Dictionary<string, Func<Object>>()
             {
-                { "IndexApiTests", () => { InitTests(); } },
-                { "SearchApiTests", () => { InitTests(); } },
-                { "UtilsApiTests", () => { InitTests(); } },
+                { "IndexApiTests", () => { return InitTests(); } },
+                { "SearchApiTests", () => { return InitTests(); } },
+                { "UtilsApiTests", () => { return InitTests(); } },
             };
 
-            //this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
-            this.CheckTest("SearchApiTests");
+            this.CheckTest(SearchApi);
         }
 
         public void Dispose()
@@ -102,7 +98,11 @@ namespace ManticoreSearch.Test.Api
             //string index = null;
             //PercolateRequest percolateRequest = null;
             //var response = instance.Percolate(index, percolateRequest);
-            //Assert.IsType<SearchResponse>(response);
+            object response = this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            if (response != null)
+            {
+                Assert.IsType<SearchResponse>(response);
+            }
         }
 
         /// <summary>
@@ -114,7 +114,11 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
             //SearchRequest searchRequest = null;
             //var response = instance.Search(searchRequest);
-            //Assert.IsType<SearchResponse>(response);
+            object response = this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            if (response != null)
+            {
+                Assert.IsType<SearchResponse>(response);
+            }
         }
     }
 }

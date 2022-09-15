@@ -14,9 +14,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Net.Http;
 using Xunit;
-
+using System.Net.Http
 
 using ManticoreSearch.Client;
 using ManticoreSearch.Api;
@@ -35,10 +34,10 @@ namespace ManticoreSearch.Test.Api
     public class IndexApiTests : IDisposable
     {
         private IndexApi instance;
+        private Dictionary<string, Func<Object>> implementedTests;
 
-        private Object InitTests()
+        private object InitTests()
         {
-            System.Console.WriteLine("ok");
             Configuration config = new Configuration();
             config.BasePath = "http://127.0.0.1:9308";
             HttpClient httpClient = new HttpClient();
@@ -52,20 +51,16 @@ namespace ManticoreSearch.Test.Api
             return instance;
         }
                 
-        private Dictionary<string, Func<Object>> implementedTests;
-
-        
-        private Object CheckTest(string testName)
+        private object CheckTest(string testName)
         {
-            System.Console.WriteLine("-----");
-            System.Console.WriteLine(testName);
-            Func<Object> act;
-            if (implementedTests.TryGetValue(testName, out act))
+            Func<Object> test;
+            if (implementedTests.TryGetValue(testName, out test))
             {
-                return act();
+                return test();
             }
             return null;
-        }        
+        }     
+                
 
         public IndexApiTests()
         {
@@ -76,8 +71,7 @@ namespace ManticoreSearch.Test.Api
                 { "UtilsApiTests", () => { return InitTests(); } },
             };
 
-            //this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
-            this.CheckTest("IndexApiTests");
+            this.CheckTest(IndexApi);
         }
 
         public void Dispose()
@@ -103,7 +97,11 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
             //string body = null;
             //var response = instance.Bulk(body);
-            //Assert.IsType<BulkResponse>(response);
+            object response = this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            if (response != null)
+            {
+                Assert.IsType<BulkResponse>(response);
+            }
         }
 
         /// <summary>
@@ -115,7 +113,11 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
             //DeleteDocumentRequest deleteDocumentRequest = null;
             //var response = instance.Delete(deleteDocumentRequest);
-            //Assert.IsType<DeleteResponse>(response);
+            object response = this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            if (response != null)
+            {
+                Assert.IsType<DeleteResponse>(response);
+            }
         }
 
         /// <summary>
@@ -127,7 +129,11 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
             //InsertDocumentRequest insertDocumentRequest = null;
             //var response = instance.Insert(insertDocumentRequest);
-            //Assert.IsType<SuccessResponse>(response);
+            object response = this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            if (response != null)
+            {
+                Assert.IsType<SuccessResponse>(response);
+            }
         }
 
         /// <summary>
@@ -139,7 +145,11 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
             //InsertDocumentRequest insertDocumentRequest = null;
             //var response = instance.Replace(insertDocumentRequest);
-            //Assert.IsType<SuccessResponse>(response);
+            object response = this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            if (response != null)
+            {
+                Assert.IsType<SuccessResponse>(response);
+            }
         }
 
         /// <summary>
@@ -151,7 +161,11 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test the method and replace null with proper value
             //UpdateDocumentRequest updateDocumentRequest = null;
             //var response = instance.Update(updateDocumentRequest);
-            //Assert.IsType<UpdateResponse>(response);
+            object response = this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            if (response != null)
+            {
+                Assert.IsType<UpdateResponse>(response);
+            }
         }
     }
 }
