@@ -49,6 +49,7 @@ namespace ManticoreSearch.Test.Api
             utilsApi.Sql(body, true);
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
+            return instance;
         }
                 
         private Dictionary<string, Action> implementedTests;
@@ -58,20 +59,21 @@ namespace ManticoreSearch.Test.Api
         {
             System.Console.WriteLine("-----");
             System.Console.WriteLine(testName);
-            Func act;
+            Func<Object> act;
             if (implementedTests.TryGetValue(testName, out act))
             {
                 return act();
             }
+            return null;
         }        
 
         public IndexApiTests()
         {
             implementedTests = new Dictionary<string, Func>()
             {
-                { "IndexApiTests", () => { InitTests(); } },
-                { "SearchApiTests", () => { InitTests(); } },
-                { "UtilsApiTests", () => { InitTests(); } },
+                { "IndexApiTests", () => { return InitTests(); } },
+                { "SearchApiTests", () => { return InitTests(); } },
+                { "UtilsApiTests", () => { return InitTests(); } },
             };
 
             //this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
