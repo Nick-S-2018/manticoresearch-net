@@ -54,13 +54,14 @@ namespace ManticoreSearch.Test.Api
         
         private void CheckTest(string testName)
         {
-            if (implementedTests.TryGetValue(testName, out action))
+            System.Console.WriteLine(testName);
+            if (implementedTests.TryGetValue(testName, out act))
             {
                 System.Console.WriteLine(instance);
-                action();
+                act();
                 System.Console.WriteLine(instance);
             }
-        }    
+        }  
 
         public SearchApiTests()
         {
