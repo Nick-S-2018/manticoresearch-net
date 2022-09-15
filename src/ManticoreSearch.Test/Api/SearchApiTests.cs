@@ -53,12 +53,13 @@ namespace ManticoreSearch.Test.Api
                 
         private object CheckTest(string testName)
         {
-            Func<Object> test;
+            //Func<Object> test;
             System.Console.WriteLine("------");
             System.Console.WriteLine(testName);
-            if (implementedTests.TryGetValue(testName, out test))
+            if (implementedTests.ContainsKey(testName))
             {
                 System.Console.WriteLine("++++++");
+                //implementedTests[testName]();
                 return null;
             }
             return null;

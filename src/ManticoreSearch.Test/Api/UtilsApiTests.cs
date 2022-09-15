@@ -51,15 +51,21 @@ namespace ManticoreSearch.Test.Api
             return instance;
         }
                 
+        
         private object CheckTest(string testName)
         {
-            Func<Object> test;
-            if (implementedTests.TryGetValue(testName, out test))
+            //Func<Object> test;
+            System.Console.WriteLine("------");
+            System.Console.WriteLine(testName);
+            if (implementedTests.ContainsKey(testName))
             {
+                System.Console.WriteLine("++++++");
+                //implementedTests[testName]();
                 return null;
             }
             return null;
         }     
+              
                 
 
         public UtilsApiTests()
