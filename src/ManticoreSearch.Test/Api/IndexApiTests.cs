@@ -69,6 +69,45 @@ namespace ManticoreSearch.Test.Api
                 { "IndexApi", () => { return InitTests(); } },
                 { "SearchApi", () => { return InitTests(); } },
                 { "UtilsApi", () => { return InitTests(); } },
+                { "BulkTest", () => 
+                    {
+                        string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n";
+                        return instance.Bulk(body);
+                    }
+                },
+                { "InsertTest", () => 
+                    {
+                        Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+                        doc.Add("body", "test");
+                        doc.Add("title", "test");
+                        InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+                        insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
+                        return instance.Insert(insertDocumentRequest);
+                    }
+                },
+                { "ReplaceTest", () => 
+                    {
+                        Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+                        doc.Add("body", "test 2");
+                        doc.Add("title", "test");
+                        InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+                        return instance.Replace(insertDocumentRequest);
+                    }
+                },
+                { "UpdateTest", () => 
+                    {
+                        Dictionary<string, Object> doc = new Dictionary<string, Object>();
+                        doc.Add("title", "test 2");
+                        UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
+                        return instance.Update(updateDocumentRequest);
+                    }
+                },
+                { "DeleteTest", () => 
+                    {
+                        DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
+                        return instance.Delete(deleteDocumentRequest);
+                    }
+                },
             };
 
             this.CheckTest("IndexApi");
