@@ -49,8 +49,10 @@ namespace ManticoreSearch.Test.Api
             var utilsApi = new UtilsApi();
             string body ="DROP TABLE IF EXISTS test";
             utilsApi.Sql(body, true);
+            System.Threading.Thread.Sleep(100);
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
+            System.Threading.Thread.Sleep(100);
             instance = new SearchApi(httpClient, config, httpClientHandler);
         }
                 
