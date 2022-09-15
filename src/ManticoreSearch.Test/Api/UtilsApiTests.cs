@@ -51,7 +51,7 @@ namespace ManticoreSearch.Test.Api
             utilsApi.Sql(body, true);
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
-            instance = new IndexApi(httpClient, config, httpClientHandler);
+            instance = new UtilsApi(httpClient, config, httpClientHandler);
         }
                 
         private object CheckTest(string testName)
@@ -77,7 +77,6 @@ namespace ManticoreSearch.Test.Api
                     {
                         { "InsertTest", () => 
                             {
-                                System.Console.WriteLine("++++++++++");
                                 Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
                                 doc.Add("body", "test");
                                 doc.Add("title", "test");

@@ -77,7 +77,6 @@ namespace ManticoreSearch.Test.Api
                     {
                         { "InsertTest", () => 
                             {
-                                System.Console.WriteLine("++++++++++");
                                 Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
                                 doc.Add("body", "test");
                                 doc.Add("title", "test");
