@@ -47,6 +47,7 @@ namespace ManticoreSearch.Test.Api
             httpClient = new HttpClient();
             httpClientHandler = new HttpClientHandler();
             string body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
+            var utilsApi = new UtilsApi();
             utilsApi.Sql(body, true);
             instance = new UtilsApi(httpClient, config, httpClientHandler);
         }
