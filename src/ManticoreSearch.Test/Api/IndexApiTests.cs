@@ -49,7 +49,7 @@ namespace ManticoreSearch.Test.Api
             utilsApi.Sql(body, true);
         }
                 
-        private static Dictionary<string, Action> implementedTests = new Dictionary<string, Action>()
+        private Dictionary<string, Action> implementedTests = new Dictionary<string, Action>()
         {
             { "IndexApiTests", () => { this.InitTests(); } },
             { "SearchApiTests", () => { this.InitTests(); } },
