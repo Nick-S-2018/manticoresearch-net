@@ -54,8 +54,8 @@ namespace ManticoreSearch.Test.Api
         private object CheckTest(string testName)
         {
             Func<Object> test;
-            System.console.WriteLine("------");
-            System.console.WriteLine(testName);
+            System.Console.WriteLine("------");
+            System.Console.WriteLine(testName);
             if (implementedTests.TryGetValue(testName, out test))
             {
                 System.console.WriteLine("++++++");
