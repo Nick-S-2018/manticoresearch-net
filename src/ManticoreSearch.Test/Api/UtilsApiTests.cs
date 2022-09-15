@@ -57,12 +57,12 @@ namespace ManticoreSearch.Test.Api
             //Func<Object> test;
             System.Console.WriteLine("------");
             System.Console.WriteLine(testName);
-            if (implementedTests.ContainsKey(testName))
-            {
-                System.Console.WriteLine("++++++");
-                //implementedTests[testName]();
-                return null;
-            }
+            // if (implementedTests.ContainsKey(testName))
+            // {
+            //     System.Console.WriteLine("++++++");
+            //     //implementedTests[testName]();
+            //     return null;
+            // }
             return null;
         }     
               
