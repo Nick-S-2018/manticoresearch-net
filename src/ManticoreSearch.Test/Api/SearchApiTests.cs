@@ -58,7 +58,7 @@ namespace ManticoreSearch.Test.Api
         
         private void CheckTest(string testName)
         {
-            if (this.implementedTests.TryGetValue(string testName, out action))
+            if (this.implementedTests.TryGetValue(testName, out action))
             {
                 System.Console.WriteLine(instance);
                 action();
