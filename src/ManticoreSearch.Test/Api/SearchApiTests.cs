@@ -70,9 +70,9 @@ namespace ManticoreSearch.Test.Api
         {
             implementedTests = new Dictionary<string, Func<Object,Object>>()
             {
-                { "IndexApi", () => { return InitTests(); } },
-                { "SearchApi", () => { return InitTests(); } },
-                { "UtilsApi", () => { return InitTests(); } },
+                { "IndexApi", (p) => { return InitTests(); } },
+                { "SearchApi", (p) => { return InitTests(); } },
+                { "UtilsApi", (p) => { return InitTests(); } },
                 { "BulkTest", (p) => 
                     {
                         string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n";
