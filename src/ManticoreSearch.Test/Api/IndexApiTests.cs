@@ -35,8 +35,13 @@ namespace ManticoreSearch.Test.Api
     {
         private IndexApi instance;
 
+        private HasMethod(object obj, string methodName) {
+            return obj.GetType().GetMethods().Count(m => m.Name == methodName) > 0;
+        }
+        
         public IndexApiTests()
         {
+            
             Configuration config = new Configuration();
             config.BasePath = "http://127.0.0.1:9308";
             HttpClient httpClient = new HttpClient();
@@ -70,10 +75,12 @@ namespace ManticoreSearch.Test.Api
         [Fact]
         public void BulkTest()
         {
-            // TODO uncomment below to test the method and replace null with proper value
-            string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"title\": \"Title 1\"}}}" + "\n";
-            var response = instance.Bulk(body);
-            Assert.IsType<BulkResponse>(response);
+            if ( this.HasMethod(instance, 'Bulk') ) 
+            {
+                string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"title\": \"Title 1\"}}}" + "\n";
+                var response = instance.Bulk(body);
+                Assert.IsType<BulkResponse>(response);
+            }
         }
         
         /// <summary>
