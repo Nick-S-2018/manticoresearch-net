@@ -61,24 +61,7 @@ namespace ManticoreSearch.Test.Api
             return null;
         }     
 
-        private object JustTest(object p)
-        {
-            // Func<Object,Object> test;
-            // if (implementedTests.TryGetValue(testName, out test))
-            // {
-            //     return test(instance);
-            // }
-            string body = "test";
-            if (0)
-            {
-                return p.Bulk(body);
-            }
-            else 
-            {
-                return null;
-            }
-        }
-                
+
 
         public IndexApiTests()
         {
@@ -87,8 +70,7 @@ namespace ManticoreSearch.Test.Api
                 { "IndexApi", (p) => { return InitTests(); } },
                 { "SearchApi", (p) => { return InitTests(); } },
                 { "UtilsApi", (p) => { return InitTests(); } },
-                { "BulkTest", JustTest },
-                { "InsertTest", (p) => 
+                { "InsertTest", (IndexApi p) => 
                     {
                         Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
                         doc.Add("body", "test");
@@ -98,7 +80,7 @@ namespace ManticoreSearch.Test.Api
                         return p.Insert(insertDocumentRequest);
                     }
                 },
-                { "ReplaceTest", (p) => 
+                { "ReplaceTest", (IndexApi p) => 
                     {
                         Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
                         doc.Add("body", "test 2");
@@ -107,7 +89,7 @@ namespace ManticoreSearch.Test.Api
                         return p.Replace(insertDocumentRequest);
                     }
                 },
-                { "UpdateTest", (p) => 
+                { "UpdateTest", (IndexApi p) => 
                     {
                         Dictionary<string, Object> doc = new Dictionary<string, Object>();
                         doc.Add("title", "test 2");
@@ -115,7 +97,7 @@ namespace ManticoreSearch.Test.Api
                         return p.Update(updateDocumentRequest);
                     }
                 },
-                { "DeleteTest", (p) => 
+                { "DeleteTest", (IndexApi p) => 
                     {
                         DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
                         return p.Delete(deleteDocumentRequest);
