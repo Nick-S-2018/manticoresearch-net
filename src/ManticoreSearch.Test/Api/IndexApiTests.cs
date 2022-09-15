@@ -69,7 +69,14 @@ namespace ManticoreSearch.Test.Api
             //     return test(instance);
             // }
             string body = "test";
-            return p.Bulk(body);
+            if (0)
+            {
+                return p.Bulk(body);
+            }
+            else 
+            {
+                return null;
+            }
         }
                 
 
