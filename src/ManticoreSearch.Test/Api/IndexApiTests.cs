@@ -34,7 +34,7 @@ namespace ManticoreSearch.Test.Api
     public class IndexApiTests : IDisposable
     {
         private IndexApi instance;
-        private Dictionary<string, Func<Object>> implementedTests;
+        private Dictionary<string, Dictionary<string,Func<Object>>> implementedTests;
 
         private object InitTests()
         {
