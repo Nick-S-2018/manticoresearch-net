@@ -54,22 +54,20 @@ namespace ManticoreSearch.Test.Api
         private Dictionary<string, Action> implementedTests;
 
         
-        private void CheckTest(string testName)
+        private object CheckTest(string testName)
         {
             System.Console.WriteLine("-----");
             System.Console.WriteLine(testName);
-            Action act;
+            Func act;
             if (implementedTests.TryGetValue(testName, out act))
             {
-                System.Console.WriteLine(instance);
-                act();
-                System.Console.WriteLine(instance);
+                return act();
             }
         }        
 
         public IndexApiTests()
         {
-            implementedTests = new Dictionary<string, Action>()
+            implementedTests = new Dictionary<string, Func>()
             {
                 { "IndexApiTests", () => { InitTests(); } },
                 { "SearchApiTests", () => { InitTests(); } },
