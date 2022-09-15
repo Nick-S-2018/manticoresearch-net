@@ -52,10 +52,10 @@ namespace ManticoreSearch.Test.Api
             return instance;
         }
                 
-        private Dictionary<string, Action> implementedTests;
+        private Dictionary<string, Func<Object>> implementedTests;
 
         
-        private object CheckTest(string testName)
+        private Object CheckTest(string testName)
         {
             System.Console.WriteLine("-----");
             System.Console.WriteLine(testName);
