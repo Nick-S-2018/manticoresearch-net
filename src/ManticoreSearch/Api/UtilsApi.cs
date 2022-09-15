@@ -13,12 +13,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Web;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mime;
 using ManticoreSearch.Client;
 using ManticoreSearch.Model;
+using System.Web;
 
 namespace ManticoreSearch.Api
 {
@@ -328,7 +328,7 @@ namespace ManticoreSearch.Api
             ManticoreSearch.Client.RequestOptions localVarRequestOptions = new ManticoreSearch.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
-                "application/x-ndjson"
+                "text/plain"
             };
 
             // to determine the Accept header
@@ -346,27 +346,32 @@ namespace ManticoreSearch.Api
             {
                 localVarRequestOptions.QueryParameters.Add(ManticoreSearch.Client.ClientUtils.ParameterToMultiMap("", "raw_response", rawResponse));
             }
-            
-            if  (rawResponse != true) {
-              body = "query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
-            } else {
-              body = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
-            }
-      
             localVarRequestOptions.Data = body;
+            if  (localVarRequestOptions.Data != null) 
+            {
+              if  (rawResponse == false) 
+              {
+                localVarRequestOptions.Data = "query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
+              } else 
+              {
+                localVarRequestOptions.Data = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
+              }
+            }
 
 
             // make the HTTP request
             var localVarResponse = new ManticoreSearch.Client.ApiResponse<List<Object>>( new HttpStatusCode(), null);
-            if  (rawResponse != true) {
+            if  (rawResponse == false) 
+            {
                 var res = this.Client.Post<Object>("/sql", localVarRequestOptions, this.Configuration);
                 List<Object> resList = new List<Object>();
                 resList.Add( res.Data );
                 localVarResponse = new ManticoreSearch.Client.ApiResponse<List<Object>>(res.StatusCode, res.Headers, resList);
-            } else {
+            } else 
+            {
                 localVarResponse = this.Client.Post<List<Object>>("/sql", localVarRequestOptions, this.Configuration);
             }
-
+            
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("Sql", localVarResponse);
