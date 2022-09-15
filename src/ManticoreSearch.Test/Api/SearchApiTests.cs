@@ -75,7 +75,7 @@ namespace ManticoreSearch.Test.Api
             };
 
             //this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
-            this.CheckTest("{{classname}}");
+            this.CheckTest("SearchApiTests");
         }
 
         public void Dispose()
