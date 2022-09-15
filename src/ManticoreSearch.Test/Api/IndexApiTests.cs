@@ -34,20 +34,24 @@ namespace ManticoreSearch.Test.Api
     public class IndexApiTests : IDisposable
     {
         private IndexApi instance;
+        private HttpClientHandler httpClientHandler;
+        private HttpClient httpClient;
+        private Configuration config;
+
         private Dictionary<string, Dictionary<string,Func<Object>>> implementedTests;
 
         private object InitTests()
         {
-            Configuration config = new Configuration();
+            config = new Configuration();
             config.BasePath = "http://127.0.0.1:9308";
-            HttpClient httpClient = new HttpClient();
-            HttpClientHandler httpClientHandler = new HttpClientHandler();
-            instance = new IndexApi(httpClient, config, httpClientHandler);
+            httpClient = new HttpClient();
+            httpClientHandler = new HttpClientHandler();
             var utilsApi = new UtilsApi();
             string body ="DROP TABLE IF EXISTS test";
             utilsApi.Sql(body, true);
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
+            instance = new IndexApi(httpClient, config, httpClientHandler);
             return instance;
         }
                 
@@ -77,12 +81,8 @@ namespace ManticoreSearch.Test.Api
                                 doc.Add("title", "test");
                                 InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
                                 insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
-                                Configuration config = new Configuration();
-                                config.BasePath = "http://127.0.0.1:9308";
-                                HttpClient httpClient = new HttpClient();
-                                HttpClientHandler httpClientHandler = new HttpClientHandler();
-                                IndexApi inst = new IndexApi(httpClient, config, httpClientHandler);
-                                return inst.Insert(insertDocumentRequest);
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Insert(insertDocumentRequest);
                             }
                         },
                     }
