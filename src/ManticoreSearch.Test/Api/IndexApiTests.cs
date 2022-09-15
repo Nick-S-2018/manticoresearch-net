@@ -40,7 +40,7 @@ namespace ManticoreSearch.Test.Api
 
         private Dictionary<string, Dictionary<string,Func<Object>>> implementedTests;
 
-        private object InitTests()
+        private void InitTests()
         {
             config = new Configuration();
             config.BasePath = "http://127.0.0.1:9308";
@@ -52,16 +52,19 @@ namespace ManticoreSearch.Test.Api
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
             instance = new IndexApi(httpClient, config, httpClientHandler);
-            return instance;
         }
                 
         private object CheckTest(string testName)
         {
-            // Func<Object,Object> test;
-            // if (implementedTests.TryGetValue(testName, out test))
-            // {
-            //     return test(instance);
-            // }
+            Dictionary<string,Func<Object>> classTests;
+            if (implementedTests.TryGetValue("IndexApi", out classTests))
+            {
+                Func<Object> test;    
+                if (classTests.TryGetValue(testName, out test))
+                {
+                    return test();
+                }
+            }
             return null;
         }     
 
