@@ -58,7 +58,7 @@ namespace ManticoreSearch.Test.Api
             System.Console.WriteLine(testName);
             if (implementedTests.TryGetValue(testName, out test))
             {
-                System.console.WriteLine("++++++");
+                System.Console.WriteLine("++++++");
                 return null;
             }
             return null;
