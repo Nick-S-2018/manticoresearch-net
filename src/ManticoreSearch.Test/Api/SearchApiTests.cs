@@ -34,39 +34,98 @@ namespace ManticoreSearch.Test.Api
     public class SearchApiTests : IDisposable
     {
         private SearchApi instance;
-        private Dictionary<string, Func<Object,Object>> implementedTests;
+        private HttpClientHandler httpClientHandler;
+        private HttpClient httpClient;
+        private Configuration config;
 
-        private object InitTests()
+        private Dictionary<string, Dictionary<string,Func<Object>>> implementedTests;
+
+        private void InitTests()
         {
-            Configuration config = new Configuration();
+            config = new Configuration();
             config.BasePath = "http://127.0.0.1:9308";
-            HttpClient httpClient = new HttpClient();
-            HttpClientHandler httpClientHandler = new HttpClientHandler();
-            instance = new SearchApi(httpClient, config, httpClientHandler);
+            httpClient = new HttpClient();
+            httpClientHandler = new HttpClientHandler();
             var utilsApi = new UtilsApi();
             string body ="DROP TABLE IF EXISTS test";
             utilsApi.Sql(body, true);
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
-            return instance;
+            instance = new IndexApi(httpClient, config, httpClientHandler);
         }
                 
         private object CheckTest(string testName)
         {
-            // Func<Object,Object> test;
-            // if (implementedTests.TryGetValue(testName, out test))
-            // {
-            //     return test(instance);
-            // }
+            Dictionary<string,Func<Object>> classTests;
+            if (implementedTests.TryGetValue("SearchApi", out classTests))
+            {
+                Func<Object> test;    
+                if (classTests.TryGetValue(testName, out test))
+                {
+                    return test();
+                }
+            }
             return null;
         }     
-                
-
+        
         public SearchApiTests()
         {
-            
+            implementedTests = new Dictionary<string, Dictionary<string,Func<Object>>>()
+            {
+                { "IndexApi", 
+                    new Dictionary<string, Func<Object>>()
+                    {
+                        { "InsertTest", () => 
+                            {
+                                System.Console.WriteLine("++++++++++");
+                                Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+                                doc.Add("body", "test");
+                                doc.Add("title", "test");
+                                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+                                insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Insert(insertDocumentRequest);
+                            }
+                        },
+                        { "BulkTest", () => 
+                            {
+                                string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n";
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Bulk(body);
+                            }
+                        },
+                        { "ReplaceTest", () => 
+                            {
+                                Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+                                doc.Add("body", "test 2");
+                                doc.Add("title", "test");
+                                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Replace(insertDocumentRequest);
+                            }
+                        },
+                        { "UpdateTest", () => 
+                            {
+                                Dictionary<string, Object> doc = new Dictionary<string, Object>();
+                                doc.Add("title", "test 2");
+                                UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Update(updateDocumentRequest);
+                            }
+                        },
+                        { "DeleteTest", () => 
+                            {
+                                DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Delete(deleteDocumentRequest);
+                            }
+                        },
+                    }
+                }
+            };
 
-            this.CheckTest("SearchApi");
+            InitTests();
+            
         }
 
         public void Dispose()

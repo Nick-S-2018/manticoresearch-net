@@ -67,9 +67,7 @@ namespace ManticoreSearch.Test.Api
             }
             return null;
         }     
-
-
-
+        
         public IndexApiTests()
         {
             implementedTests = new Dictionary<string, Dictionary<string,Func<Object>>>()
@@ -89,11 +87,45 @@ namespace ManticoreSearch.Test.Api
                                 return obj.Insert(insertDocumentRequest);
                             }
                         },
+                        { "BulkTest", () => 
+                            {
+                                string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n";
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Bulk(body);
+                            }
+                        },
+                        { "ReplaceTest", () => 
+                            {
+                                Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+                                doc.Add("body", "test 2");
+                                doc.Add("title", "test");
+                                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Replace(insertDocumentRequest);
+                            }
+                        },
+                        { "UpdateTest", () => 
+                            {
+                                Dictionary<string, Object> doc = new Dictionary<string, Object>();
+                                doc.Add("title", "test 2");
+                                UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Update(updateDocumentRequest);
+                            }
+                        },
+                        { "DeleteTest", () => 
+                            {
+                                DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
+                                var obj = new IndexApi(httpClient, config, httpClientHandler);
+                                return obj.Delete(deleteDocumentRequest);
+                            }
+                        },
                     }
                 }
             };
 
             InitTests();
+            
         }
 
         public void Dispose()
