@@ -51,9 +51,9 @@ namespace ManticoreSearch.Test.Api
                 
         private static Dictionary<string, Action> implementedTests = new Dictionary<string, Action>()
         {
-            { 'IndexApiTests', () => { this.InitTests(); } },
-            { 'SearchApiTests', () => { this.InitTests(); } },
-            { 'UtilsTests', () => { this.InitTests(); } },
+            { "IndexApiTests", () => { this.InitTests(); } },
+            { "SearchApiTests", () => { this.InitTests(); } },
+            { "UtilsTests", () => { this.InitTests(); } },
         };
         
         private void Checktest(testName)
