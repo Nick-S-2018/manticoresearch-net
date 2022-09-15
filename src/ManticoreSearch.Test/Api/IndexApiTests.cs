@@ -68,7 +68,7 @@ namespace ManticoreSearch.Test.Api
             implementedTests = new Dictionary<string, Dictionary<string,Func<Object>>>()
             {
                 { "IndexApi", 
-                    new Dictionary<string, Func<Object>()
+                    new Dictionary<string, Func<Object>>()
                     {
                         { "InsertTest", () => 
                             {
