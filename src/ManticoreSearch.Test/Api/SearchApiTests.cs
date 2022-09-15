@@ -65,16 +65,17 @@ namespace ManticoreSearch.Test.Api
             }
         }  
 
-        public SearchApiTests()
+        public IndexApiTests()
         {
             implementedTests = new Dictionary<string, Action>()
             {
-                { "IndexApiTests", () => { InitTests(); } },
-                { "SearchApiTests", () => { InitTests(); } },
-                { "UtilsTests", () => { InitTests(); } },
+                { "IndexApi", () => { InitTests(); } },
+                { "SearchApi", () => { InitTests(); } },
+                { "UtilsApi", () => { InitTests(); } },
             };
 
-            this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            //this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            this.CheckTest({{classname}});
         }
 
         public void Dispose()
