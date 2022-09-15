@@ -35,7 +35,7 @@ namespace ManticoreSearch.Test.Api
     {
         private IndexApi instance;
 
-        private HasMethod(object obj, string methodName) {
+        private bool HasMethod(object obj, string methodName) {
             return obj.GetType().GetMethods().Count(m => m.Name == methodName) > 0;
         }
         
