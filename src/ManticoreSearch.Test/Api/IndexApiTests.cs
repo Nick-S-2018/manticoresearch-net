@@ -65,10 +65,10 @@ namespace ManticoreSearch.Test.Api
 
         public IndexApiTests()
         {
-            implementedTests = new Dictionary<string, Dictionary<string,Func<T>>>()
+            implementedTests = new Dictionary<string, Dictionary<string,Func>>()
             {
                 { "IndexApi", 
-                    new Dictionary<string, Func<T>>()
+                    new Dictionary<string, Func>()
                     {
                         { "InsertTest", () => 
                             {
@@ -81,7 +81,7 @@ namespace ManticoreSearch.Test.Api
                                 config.BasePath = "http://127.0.0.1:9308";
                                 HttpClient httpClient = new HttpClient();
                                 HttpClientHandler httpClientHandler = new HttpClientHandler();
-                                inst = new IndexApi(httpClient, config, httpClientHandler);
+                                IndexApi inst = new IndexApi(httpClient, config, httpClientHandler);
                                 return inst.Insert(insertDocumentRequest);
                             }
                         },
