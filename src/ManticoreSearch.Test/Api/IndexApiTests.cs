@@ -65,47 +65,48 @@ namespace ManticoreSearch.Test.Api
 
         public IndexApiTests()
         {
-            implementedTests = new Dictionary<string, Func<Object,Object>>()
+            implementedTests = new Dictionary<string, Dictionary<string,Func>>()
             {
-                { "IndexApi", (p) => { return InitTests(); } },
-                { "SearchApi", (p) => { return InitTests(); } },
-                { "UtilsApi", (p) => { return InitTests(); } },
-                { "InsertTest", (IndexApi p) => 
+                { "IndexApi", 
                     {
-                        Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
-                        doc.Add("body", "test");
-                        doc.Add("title", "test");
-                        InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
-                        insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
-                        return p.Insert(insertDocumentRequest);
+                    { "InsertTest", (IndexApi p) => 
+                        {
+                            Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+                            doc.Add("body", "test");
+                            doc.Add("title", "test");
+                            InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+                            insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
+                            return p.Insert(insertDocumentRequest);
+                        }
+                    },
+                    { "ReplaceTest", (IndexApi p) => 
+                        {
+                            Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+                            doc.Add("body", "test 2");
+                            doc.Add("title", "test");
+                            InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
+                            return p.Replace(insertDocumentRequest);
+                        }
+                    },
+                    { "UpdateTest", (IndexApi p) => 
+                        {
+                            Dictionary<string, Object> doc = new Dictionary<string, Object>();
+                            doc.Add("title", "test 2");
+                            UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
+                            return p.Update(updateDocumentRequest);
+                        }
+                    },
+                    { "DeleteTest", (IndexApi p) => 
+                        {
+                            DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
+                            return p.Delete(deleteDocumentRequest);
+                        }
                     }
-                },
-                { "ReplaceTest", (IndexApi p) => 
-                    {
-                        Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
-                        doc.Add("body", "test 2");
-                        doc.Add("title", "test");
-                        InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
-                        return p.Replace(insertDocumentRequest);
                     }
-                },
-                { "UpdateTest", (IndexApi p) => 
-                    {
-                        Dictionary<string, Object> doc = new Dictionary<string, Object>();
-                        doc.Add("title", "test 2");
-                        UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
-                        return p.Update(updateDocumentRequest);
-                    }
-                },
-                { "DeleteTest", (IndexApi p) => 
-                    {
-                        DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
-                        return p.Delete(deleteDocumentRequest);
-                    }
-                },
+                }
             };
 
-            this.CheckTest("IndexApi");
+            IntiTests();
         }
 
         public void Dispose()

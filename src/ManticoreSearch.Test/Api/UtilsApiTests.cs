@@ -64,51 +64,7 @@ namespace ManticoreSearch.Test.Api
 
         public UtilsApiTests()
         {
-            implementedTests = new Dictionary<string, Func<Object,Object>>()
-            {
-                { "IndexApi", (p) => { return InitTests(); } },
-                { "SearchApi", (p) => { return InitTests(); } },
-                { "UtilsApi", (p) => { return InitTests(); } },
-                { "BulkTest", (p) => 
-                    {
-                        string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n";
-                        return p.Bulk(body);
-                    }
-                },
-                { "InsertTest", (p) => 
-                    {
-                        Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
-                        doc.Add("body", "test");
-                        doc.Add("title", "test");
-                        InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
-                        insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
-                        return p.Insert(insertDocumentRequest);
-                    }
-                },
-                { "ReplaceTest", (p) => 
-                    {
-                        Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
-                        doc.Add("body", "test 2");
-                        doc.Add("title", "test");
-                        InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
-                        return p.Replace(insertDocumentRequest);
-                    }
-                },
-                { "UpdateTest", (p) => 
-                    {
-                        Dictionary<string, Object> doc = new Dictionary<string, Object>();
-                        doc.Add("title", "test 2");
-                        UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
-                        return p.Update(updateDocumentRequest);
-                    }
-                },
-                { "DeleteTest", (p) => 
-                    {
-                        DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 1);
-                        return p.Delete(deleteDocumentRequest);
-                    }
-                },
-            };
+            
 
             this.CheckTest("UtilsApi");
         }
