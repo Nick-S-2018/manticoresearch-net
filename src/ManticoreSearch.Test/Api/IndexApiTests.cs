@@ -67,7 +67,7 @@ namespace ManticoreSearch.Test.Api
             }
         }        
 
-        public void IndexApiTests()
+        public IndexApiTests()
         {
             implementedTests = new Dictionary<string, Action>()
             {
