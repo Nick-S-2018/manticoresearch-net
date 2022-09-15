@@ -356,7 +356,7 @@ namespace ManticoreSearch.Client
                 var contentTypes = options.HeaderParameters["Content-Type"];
                 contentType = contentTypes.FirstOrDefault();
             }
-            
+
             if (contentType == "multipart/form-data")
             {
                 request.Content = PrepareMultipartFormDataContent(options);
@@ -397,6 +397,8 @@ namespace ManticoreSearch.Client
                     }
                 }
             }
+
+
 
             // TODO provide an alternative that allows cookies per request instead of per API client
             if (options.Cookies != null && options.Cookies.Count > 0)
