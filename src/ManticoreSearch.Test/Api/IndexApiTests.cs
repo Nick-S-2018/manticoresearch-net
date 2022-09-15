@@ -46,7 +46,7 @@ namespace ManticoreSearch.Test.Api
             config.BasePath = "http://127.0.0.1:9308";
             httpClient = new HttpClient();
             httpClientHandler = new HttpClientHandler();
-            body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
+            string body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
             instance = new IndexApi(httpClient, config, httpClientHandler);
         }
