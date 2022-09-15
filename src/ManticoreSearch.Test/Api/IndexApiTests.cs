@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Net.Http;
 using Xunit;
 
 using ManticoreSearch.Client;
@@ -35,13 +34,9 @@ namespace ManticoreSearch.Test.Api
     {
         private IndexApi instance;
 
-        private bool HasMethod(object obj, string methodName) {
-            return obj.GetType().GetMethods().Count(m => m.Name == methodName) > 0;
-        }
-        
-        public IndexApiTests()
+        private void InitTests()
         {
-            
+            System.Console.WriteLine("ok");
             Configuration config = new Configuration();
             config.BasePath = "http://127.0.0.1:9308";
             HttpClient httpClient = new HttpClient();
@@ -52,6 +47,28 @@ namespace ManticoreSearch.Test.Api
             utilsApi.Sql(body, true);
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
             utilsApi.Sql(body, true);
+        }
+                
+        private implementedTests = new Dictionary<string, Action>()
+        {
+            { 'IndexApiTests', () => { this.InitTests(); } },
+            { 'SearchApiTests', () => { this.InitTests(); } },
+            { 'UtilsTests', () => { this.InitTests(); } },
+        };
+        
+        private void Checktest(testName)
+        {
+            if (this.implementedTests.TryGetValue(testName, out action))
+            {
+                System.Console.WriteLine(instance);
+                action();
+                System.Console.WriteLine(instance);
+            }
+        }        
+
+        public IndexApiTests()
+        {
+            this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
         }
 
         public void Dispose()
@@ -65,24 +82,33 @@ namespace ManticoreSearch.Test.Api
         [Fact]
         public void InstanceTest()
         {
-            // TODO uncomment below to test 'IsType' IndexApi
             Assert.IsType<IndexApi>(instance);
         }
-        
+
         /// <summary>
         /// Test Bulk
         /// </summary>
         [Fact]
         public void BulkTest()
         {
-            if ( this.HasMethod(instance, "Bulk") ) 
-            {
-                string body = "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"title\": \"Title 1\"}}}" + "\n";
-                var response = instance.Bulk(body);
-                Assert.IsType<BulkResponse>(response);
-            }
+            // TODO uncomment below to test the method and replace null with proper value
+            //string body = null;
+            //var response = instance.Bulk(body);
+            //Assert.IsType<BulkResponse>(response);
         }
-        
+
+        /// <summary>
+        /// Test Delete
+        /// </summary>
+        [Fact]
+        public void DeleteTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //DeleteDocumentRequest deleteDocumentRequest = null;
+            //var response = instance.Delete(deleteDocumentRequest);
+            //Assert.IsType<DeleteResponse>(response);
+        }
+
         /// <summary>
         /// Test Insert
         /// </summary>
@@ -90,13 +116,9 @@ namespace ManticoreSearch.Test.Api
         public void InsertTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-           Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
-           doc.Add("body", "test");
-           doc.Add("title", "test");
-           InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
-           insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 2, doc: doc);
-           var response = instance.Insert(insertDocumentRequest);
-           Assert.IsType<SuccessResponse>(response);
+            //InsertDocumentRequest insertDocumentRequest = null;
+            //var response = instance.Insert(insertDocumentRequest);
+            //Assert.IsType<SuccessResponse>(response);
         }
 
         /// <summary>
@@ -106,12 +128,9 @@ namespace ManticoreSearch.Test.Api
         public void ReplaceTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
-            doc.Add("body", "test 2");
-            doc.Add("title", "test");
-            InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(index: "test", id: 1, doc: doc);
-            var response = instance.Replace(insertDocumentRequest);
-            Assert.IsType<SuccessResponse>(response);
+            //InsertDocumentRequest insertDocumentRequest = null;
+            //var response = instance.Replace(insertDocumentRequest);
+            //Assert.IsType<SuccessResponse>(response);
         }
 
         /// <summary>
@@ -121,24 +140,9 @@ namespace ManticoreSearch.Test.Api
         public void UpdateTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            Dictionary<string, Object> doc = new Dictionary<string, Object>();
-            doc.Add("title", "test 2");
-            UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(index: "test", id: 2, doc: doc);
-            var response = instance.Update(updateDocumentRequest);
-            Assert.IsType<UpdateResponse>(response);
+            //UpdateDocumentRequest updateDocumentRequest = null;
+            //var response = instance.Update(updateDocumentRequest);
+            //Assert.IsType<UpdateResponse>(response);
         }
-        
-        /// <summary>
-        /// Test Delete
-        /// </summary>
-        [Fact]
-        public void DeleteTest()
-        {
-            // TODO uncomment below to test the method and replace null with proper value
-            DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(index: "test", id: 2);
-            var response = instance.Delete(deleteDocumentRequest);
-            Assert.IsType<DeleteResponse>(response);
-        }
-        
     }
 }

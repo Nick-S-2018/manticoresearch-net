@@ -19,7 +19,7 @@ using Xunit;
 using ManticoreSearch.Client;
 using ManticoreSearch.Api;
 // uncomment below to import models
-//using ManticoreSearch.Model;
+using ManticoreSearch.Model;
 
 namespace ManticoreSearch.Test.Api
 {
@@ -34,9 +34,41 @@ namespace ManticoreSearch.Test.Api
     {
         private SearchApi instance;
 
+        private void InitTests()
+        {
+            System.Console.WriteLine("ok");
+            Configuration config = new Configuration();
+            config.BasePath = "http://127.0.0.1:9308";
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            instance = new SearchApi(httpClient, config, httpClientHandler);
+            var utilsApi = new UtilsApi();
+            string body ="DROP TABLE IF EXISTS test";
+            utilsApi.Sql(body, true);
+            body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
+            utilsApi.Sql(body, true);
+        }
+                
+        private implementedTests = new Dictionary<string, Action>()
+        {
+            { 'IndexApiTests', () => { this.InitTests(); } },
+            { 'SearchApiTests', () => { this.InitTests(); } },
+            { 'UtilsTests', () => { this.InitTests(); } },
+        };
+        
+        private void Checktest(testName)
+        {
+            if (this.implementedTests.TryGetValue(testName, out action))
+            {
+                System.Console.WriteLine(instance);
+                action();
+                System.Console.WriteLine(instance);
+            }
+        }        
+
         public SearchApiTests()
         {
-            instance = new SearchApi();
+            this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
         }
 
         public void Dispose()
@@ -50,8 +82,7 @@ namespace ManticoreSearch.Test.Api
         [Fact]
         public void InstanceTest()
         {
-            // TODO uncomment below to test 'IsType' SearchApi
-            //Assert.IsType<SearchApi>(instance);
+            Assert.IsType<SearchApi>(instance);
         }
 
         /// <summary>
