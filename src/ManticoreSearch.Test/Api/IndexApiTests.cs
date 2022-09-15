@@ -36,7 +36,7 @@ namespace ManticoreSearch.Test.Api
     {
         private IndexApi instance;
 
-        private void InitTests()
+        private Object InitTests()
         {
             System.Console.WriteLine("ok");
             Configuration config = new Configuration();
@@ -69,7 +69,7 @@ namespace ManticoreSearch.Test.Api
 
         public IndexApiTests()
         {
-            implementedTests = new Dictionary<string, Func>()
+            implementedTests = new Dictionary<string, Func<Object>>()
             {
                 { "IndexApiTests", () => { return InitTests(); } },
                 { "SearchApiTests", () => { return InitTests(); } },
