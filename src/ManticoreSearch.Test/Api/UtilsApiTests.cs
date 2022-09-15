@@ -53,11 +53,11 @@ namespace ManticoreSearch.Test.Api
                 
         private object CheckTest(string testName)
         {
-            Func<Object,Object> test;
-            if (implementedTests.TryGetValue(testName, out test))
-            {
-                return test(instance);
-            }
+            // Func<Object,Object> test;
+            // if (implementedTests.TryGetValue(testName, out test))
+            // {
+            //     return test(instance);
+            // }
             return null;
         }     
                 
