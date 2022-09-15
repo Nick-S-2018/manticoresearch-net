@@ -14,9 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Net.Http;
 using Xunit;
-using Newtonsoft.Json;
 
 using ManticoreSearch.Client;
 using ManticoreSearch.Api;
@@ -47,15 +45,7 @@ namespace ManticoreSearch.Test.Api
             string body ="DROP TABLE IF EXISTS test";
             utilsApi.Sql(body, true);
             body = "CREATE TABLE IF NOT EXISTS test (body text, title string)";
-            var res = utilsApi.Sql(body, true);
-            body = "SELECT * FROM test";
-            res = utilsApi.Sql(body, true);
-            string json = JsonConvert.SerializeObject(res);
-            System.Console.WriteLine(json);
-            System.Console.WriteLine("------");
-            res = utilsApi.Sql(body, false);
-            json = JsonConvert.SerializeObject(res);
-            System.Console.WriteLine(json);
+            utilsApi.Sql(body, true);
         }
 
         public void Dispose()
@@ -72,7 +62,7 @@ namespace ManticoreSearch.Test.Api
             // TODO uncomment below to test 'IsType' IndexApi
             Assert.IsType<IndexApi>(instance);
         }
-
+        
         /// <summary>
         /// Test Bulk
         /// </summary>
@@ -141,7 +131,6 @@ namespace ManticoreSearch.Test.Api
             var response = instance.Delete(deleteDocumentRequest);
             Assert.IsType<DeleteResponse>(response);
         }
-
-
+        
     }
 }
